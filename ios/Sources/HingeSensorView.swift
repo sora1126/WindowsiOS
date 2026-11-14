@@ -160,34 +160,15 @@ final class HingeObserverViewController: UIViewController {
         installHingeObserverIfAvailable()
     }
 
-    
-
     private func installHingeObserverIfAvailable() {
         guard !didInstallHinge else { return }
         didInstallHinge = true
 
-        WinIOSBridge.shared.updateHingeStatus(
-            0,
-            angleDegrees: -1.0
-        )
+        // UIHingeInteraction is unavailable in the current build SDK.
+        WinIOSBridge.shared.updateHingeStatus(0, angleDegrees: -1.0)
         onHingeUpdate?(0, nil)
     }
 }
-
-
-    private func installHingeObserverIfAvailable() {
-        guard !didInstallHinge else { return }
-        didInstallHinge = true
-
-        WinIOSBridge.shared.updateHingeStatus(
-            0,
-            angleDegrees: -1.0
-        )
-        onHingeUpdate?(0, nil)
-    }
-}
-
-struct HingeSensorView: UIViewControllerRepresentable {
 
 struct HingeSensorView: UIViewControllerRepresentable {
     var onHingeUpdate: (Int, Double?) -> Void
