@@ -175,8 +175,6 @@ final class HingeObserverViewController: UIViewController {
 }
 
 
-        guard !didInstallHinge else { return }
-        guard NSClassFromString("UIHingeInteraction") != nil else { return }
         if #available(iOS 27.1, *) {
             let interaction = UIHingeInteraction { [weak self] _, update in
                 guard let self else { return }
