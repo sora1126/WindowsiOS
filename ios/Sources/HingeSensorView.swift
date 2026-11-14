@@ -161,17 +161,19 @@ final class HingeObserverViewController: UIViewController {
     }
 
     
-private func installHingeObserverIfAvailable() {
-    guard !didInstallHinge else { return }
-    didInstallHinge = true
 
-    // Hinge sensor is disabled for this build.
-    WinIOSBridge.shared.updateHingeStatus(
-        0,
-        angleDegrees: -1.0
-    )
-    onHingeUpdate?(0, nil)
+    private func installHingeObserverIfAvailable() {
+        guard !didInstallHinge else { return }
+        didInstallHinge = true
+
+        WinIOSBridge.shared.updateHingeStatus(
+            0,
+            angleDegrees: -1.0
+        )
+        onHingeUpdate?(0, nil)
+    }
 }
+
 
         guard !didInstallHinge else { return }
         didInstallHinge = true
