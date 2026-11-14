@@ -175,23 +175,19 @@ final class HingeObserverViewController: UIViewController {
 }
 
 
-        if #available(iOS 27.1, *) {
-            let interaction = UIHingeInteraction { [weak self] _, update in
-                guard let self else { return }
-                guard let hinge = update.hinge else {
-                    WinIOSBridge.shared.updateHingeStatus(0, angleDegrees: -1.0)
-                    self.onHingeUpdate?(0, nil)
-                    return
-                }
-                let rawStatus = hinge.status.rawValue
-                let deg = Double(hinge.angle) * 180.0 / .pi
-                WinIOSBridge.shared.updateHingeStatus(rawStatus, angleDegrees: deg)
-                self.onHingeUpdate?(rawStatus, deg)
-            }
-            view.addInteraction(interaction)
-        }
+    private func installHingeObserverIfAvailable() {
+        guard !didInstallHinge else { return }
+        didInstallHinge = true
+
+        WinIOSBridge.shared.updateHingeStatus(
+            0,
+            angleDegrees: -1.0
+        )
+        onHingeUpdate?(0, nil)
     }
 }
+
+struct HingeSensorView: UIViewControllerRepresentable {
 
 struct HingeSensorView: UIViewControllerRepresentable {
     var onHingeUpdate: (Int, Double?) -> Void
