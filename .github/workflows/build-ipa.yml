@@ -2,6 +2,9 @@
 name: Build WindowsiOS IPA
 
 on:
+  push:
+    branches:
+      - fix/ipa-build-dependencies
   workflow_dispatch:
 
 jobs:
