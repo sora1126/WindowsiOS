@@ -13,6 +13,18 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
+      - name: Install dependency build tools
+        run: brew install meson ninja pkg-config autoconf automake libtool gettext pcre2
+
+      - name: Build iOS dependencies
+        run: bash scripts/build_ios_deps.sh
+
+      - name: Build Windows VM library
+        run: |
+          make -j2 ios-lib
+          test -s build/ios/libwinvm.a
+          ls -lh build/ios/libwinvm.a ios/deps/lib/
+
       - name: Generate Xcode project
         run: |
           cd ios
